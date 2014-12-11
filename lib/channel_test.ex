@@ -13,6 +13,8 @@ defmodule ChannelTest do
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: ChannelTest.Supervisor]
     Supervisor.start_link(children, opts)
+    :random.seed(:erlang.now())
+    :random.seed(:erlang.now())
     Agent.start_link(fn -> %{
                         "players" => [],
                         "target_number" => :random.uniform(500),
