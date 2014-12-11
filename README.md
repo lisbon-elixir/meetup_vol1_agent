@@ -1,4 +1,5 @@
-# ChannelTest
+# Lisbon Elixir Meetup vol.1
+## Naive example of using an Agent
 
 To start your new Phoenix application:
 
