@@ -1,0 +1,55 @@
+<ul class="navigation">
+  <li><a href="#"><span id="game-end-text"></span></a></li>
+  <li><a href="#">Number of players: <span id="number-of-players">-</span></a></li>
+</ul>
+<ul class="flex-container">
+  <li class="flex-item">Target number: <br> <span id="target-number">-</span></li>
+  <li class="flex-item">Current number: <br> <span id="current-number">-</span></li>
+</ul>
+
+<ul class="flex-container">
+  <a href="#"><li class="flex-item client" data-value="1">Add 1</li></a>
+  <a href="#"><li class="flex-item client" data-value="5">Add 5</li></a>
+  <a href="#"><li class="flex-item client" data-value="10">Add 10</li></a>
+  <a href="#"><li class="flex-item client" data-value="20">Add 20</li></a>
+  <a href="#"><li class="flex-item client" data-value="50">Add 50</li></a>
+  <a href="#"><li class="flex-item client" data-value="100">Add 100</li></a>
+</ul>
+
+<!-- <script type="text/javascript" src="js/app_client.js"></script> -->
+
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="/js/phoenix.js"></script>
+<script>
+$(document).ready(function () {
+  user_id = (new Date()).getTime();
+  var socket = new Phoenix.Socket("/ws"),
+      player_channel = null;
+  socket.join("gamechannel", "topic", {id: user_id}, function(channel) {
+    player_channel = channel;
+    channel.on("players:join", function(message){
+      $('#number-of-players').text(message.number_of_players);
+    });
+    channel.on("game:state", function(message){
+      $('#number-of-players').text(message.number_of_players);
+      $('#target-number').text(message.target_number);
+      $('#current-number').text(message.current_number);
+    });
+    channel.on("game:end", function(message){
+      if (message.game_won) {
+        $('#game-end-text').text("Team work ftw!! You reached the number!");
+      } else {
+        $('#game-end-text').text("Crap, no luck this time :(");
+      }
+      setTimeout(function(){$('#game-end-text').text("")}, 3000);
+    });
+
+  });
+
+  $('.flex-container > a').click(function (el) {
+    var value = el.target.getAttribute('data-value');
+    player_channel.send("player:add_value", {value: value});
+  });
+
+});
+</script>
