@@ -7,7 +7,7 @@
   <li class="flex-item">Current number: <br> <span id="current-number">-</span></li>
 </ul>
 
-<ul class="flex-container">
+<ul class="flex-container keypad">
   <a href="#"><li class="flex-item client" data-value="1">Add 1</li></a>
   <a href="#"><li class="flex-item client" data-value="5">Add 5</li></a>
   <a href="#"><li class="flex-item client" data-value="10">Add 10</li></a>
@@ -21,6 +21,7 @@
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="/js/phoenix.js"></script>
 <script>
+
 $(document).ready(function () {
   user_id = (new Date()).getTime();
   var socket = new Phoenix.Socket("/ws"),

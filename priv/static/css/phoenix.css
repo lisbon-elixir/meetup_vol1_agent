@@ -110,3 +110,10 @@
 #game-end-text {
   font-style: bold;
 }
+
+.keypad {
+  background-color: #eee;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-top: 20px;
+}
