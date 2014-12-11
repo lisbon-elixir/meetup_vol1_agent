@@ -387,9 +387,6 @@
 
       Socket.prototype.onMessage = function(rawMessage) {
         var chan, channel, event, message, topic, _i, _len, _ref, _ref1, _results;
-        if (typeof console.log === "function") {
-          console.log("message received: ", rawMessage);
-        }
         _ref = JSON.parse(rawMessage.data), channel = _ref.channel, topic = _ref.topic, event = _ref.event, message = _ref.message;
         _ref1 = this.channels;
         _results = [];
